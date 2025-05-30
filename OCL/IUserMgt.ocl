@@ -1,0 +1,7 @@
+context IUserMgt::login(username: String, password: String): Boolean
+pre UsernameDanPasswordTidakBolehKosong:
+    not username.oclIsUndefined() and username.size() > 0 and
+    not password.oclIsUndefined() and password.size() > 0
+
+post HasilLoginValid:
+    result = (User.allInstances()->exists(u | u.username = username and u.password = password))

@@ -1,0 +1,35 @@
+context IReservasiMgt::createReservasi(user: User, ruang: RuangTeater, tanggal: Date, mulai: Time, selesai: Time)
+pre ValidDanTidakBentrok:
+    not ruang.oclIsUndefined() and 
+    not tanggal.oclIsUndefined() and 
+    not mulai.oclIsUndefined() and 
+    not selesai.oclIsUndefined() and
+    mulai < selesai and 
+    tanggal >= DateTime.now() and
+    Reservasi.allInstances()
+    ->select(r | r.ruang = ruang and r.tanggal = tanggal)
+    ->forAll(r | selesai <= r.mulai or mulai >= r.selesai)
+post ReservasiDitambahkan:
+    Reservasi.allInstances()->exists(r | r.user = user and r.ruang = ruang and r.tanggal = tanggal and r.mulai = mulai and r.selesai = selesai and r.status = 'Menunggu')
+
+context IReservasiMgt::showReservasi(user: User): Set(Reservasi)
+pre UserValid:
+    not user.oclIsUndefined() and User.allInstances()->includes(user)
+post HanyaReservasiUser:
+    result->forAll(r | r.user = user)
+
+context IReservasiMgt::getStatusReservasi(reservasiID: Integer): String
+pre ReservasiAda:
+    Reservasi.allInstances()->exists(r | r.id = reservasiID)
+post StatusDikembalikan:
+    result = Reservasi.allInstances()->any(r | r.id = reservasiID).status
+
+context IReservasiMgt::updateStatus(reservasiID: Integer, statusBaru: String)
+pre ReservasiDanStatusValid:
+    Reservasi.allInstances()->exists(r | r.id = reservasiID) and
+    (statusBaru = 'Diterima' or statusBaru = 'Ditolak' or statusBaru = 'Selesai')
+post StatusBerhasilDiperbarui:
+    Reservasi.allInstances()
+    ->any(r | r.id = reservasiID).status = statusBaru
+
+

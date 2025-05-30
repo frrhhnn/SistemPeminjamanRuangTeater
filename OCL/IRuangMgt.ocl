@@ -1,0 +1,26 @@
+context IRuangMgt::showRuang(): Set(RuangTeater)
+pre HarusLoginDulu:
+    self.currentUser <> null and self.currentUser.isLoggedIn = true
+post MengembalikanSemuaRuang:
+    result = RuangTeater.allInstances()
+
+context IRuangMgt::createRuang(nama: String, kapasitas: Integer): RuangTeater
+pre DataValid:
+    not nama.oclIsUndefined() and nama.size() > 0 and kapasitas > 0
+post RuangBerhasilDibuat:
+    RuangTeater.allInstances()->includes(result) and
+    result.nama = nama and result.kapasitas = kapasitas
+
+context IRuangMgt::updateRuang(r: RuangTeater, nama: String, kapasitas: Integer): RuangTeater
+pre RuangDanDataValid:
+    not r.oclIsUndefined() and RuangTeater.allInstances()->includes(r) and
+    not nama.oclIsUndefined() and nama.size() > 0 and kapasitas > 0
+post DataBerhasilDiubah:
+    result = r and r.nama = nama and r.kapasitas = kapasitas
+
+context IRuangMgt::deleteRuang(r: RuangTeater): Boolean
+pre RuangValid:
+    not r.oclIsUndefined() and RuangTeater.allInstances()->includes(r)
+post RuangBerhasilDihapus:
+    result = true and not RuangTeater.allInstances()->includes(r)
+
