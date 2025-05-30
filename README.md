@@ -1,8 +1,8 @@
-# Sistem Manajemen Reservasi Teater
+# Sistem Peminjaman Ruang Teater
 
 ## Deskripsi Proyek
 
-Sistem Manajemen Reservasi Teater adalah aplikasi berbasis Java yang dirancang untuk mengelola reservasi ruang teater. Aplikasi ini mendukung dua jenis pengguna: **admin** dan **pengguna biasa**. Pengguna biasa dapat membuat reservasi, melihat daftar reservasi mereka, dan memeriksa status reservasi. Admin memiliki hak tambahan untuk mengelola ruang teater (menambah, memperbarui, menghapus) dan memperbarui status reservasi. Program ini dibangun dengan pendekatan berbasis komponen, di mana setiap kelas memiliki tanggung jawab spesifik, dan antarmuka digunakan untuk mendefinisikan kontrak operasi.
+Sistem Peminjaman Ruang Teater adalah aplikasi berbasis Java yang dirancang untuk mengelola reservasi ruang teater. Aplikasi ini mendukung dua jenis pengguna: **admin** dan **pengguna biasa**. Pengguna biasa dapat membuat reservasi, melihat daftar reservasi mereka, dan memeriksa status reservasi. Admin memiliki hak tambahan untuk mengelola ruang teater (menambah, memperbarui, menghapus) dan memperbarui status reservasi. Program ini dibangun dengan pendekatan berbasis komponen, di mana setiap kelas memiliki tanggung jawab spesifik, dan antarmuka digunakan untuk mendefinisikan kontrak operasi.
 
 Fitur utama:
 
